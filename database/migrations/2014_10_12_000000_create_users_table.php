@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->enum('role',['apprenant','superviseur'])->default('apprenant');
-            $table->string('nbre_reponse');
+            $table->Integer('nbre_reponse')->default(0);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
