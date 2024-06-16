@@ -23,16 +23,17 @@ route::middleware(['auth:sanctum', VerifyBearerToken::class])->group(function(){
 
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+    Route::post('/questions', [QuestionController::class, 'store']);
+    Route::delete('/questions/{id}', [QuestionController::class, 'destroy']);
+    Route::post('/questions/{id}', [QuestionController::class, 'update']);
+    Route::get('/editquestion/{id}',[QuestionController::class,'edit']);
+
+    
     // Methode d'insertion du theme
-Route::post('storeTheme',[ThemeController::class,'create']);
-// Methode de suppression du theme
-Route::delete('deleteTheme/{id}',[ThemeController::class,'delete']);
-
-Route::post('/questions', [QuestionController::class, 'store']);
-
-Route::delete('/questions/{id}', [QuestionController::class, 'destroy']);
-Route::post('/questions/{id}', [QuestionController::class, 'update']);
-Route::get('/editquestion/{id}',[QuestionController::class,'edit']);
+    Route::post('storeTheme',[ThemeController::class,'create']);
+    // Methode de suppression du theme
+    Route::delete('deleteTheme/{id}',[ThemeController::class,'delete']);
 
 
 

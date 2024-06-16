@@ -8,6 +8,7 @@ use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Notifications\Notif;
+use Exception;
 use Laravel\Sanctum\NewAccessToken;
 
 class AuthController extends Controller
@@ -15,33 +16,29 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        try{
+        try {
             $data = $request->validated();
 
+            $data['nbre_reponse'] = 0;
             // Hash du mot de passe
             $data['password'] = bcrypt($data['password']);
     
             // Enregistrement de l'utilisateur
             $user = User::create($data);
     
-         
-    
             // Authentification automatique après l'inscription
             auth()->login($user);
 
     
             $user=auth()->user();
-       $token=$user->createToken('token_name',['*'],now()->addMinutes(60))->plainTextToken;
+            $token= $user->createToken('token_name',['*'],now()->addMinutes(60))->plainTextToken;
 
        return response()->json([
         //retourner le token avec l'heure d'expiration
         'token'=>$token,
         'expireAt'=> now()->addMinutes(60)->format('Y-m-d H:i:s'),
 
-        //"status"=> 200,
-        //"message"=> "Vous etes actuellement connecter",
-        //"student"=>$user,
-       // "token"=>$token
+       
 
     ], 200);
 

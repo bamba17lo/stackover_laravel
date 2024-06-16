@@ -25,26 +25,21 @@ class QuestionController extends Controller
             return response()->json([
                 "status"=> $e->getcode(),
                 "message"=> $e->getMessage()
-                
             ]);
         }
-       
     }
 
     public function store(Request $request)
     {
         try{
-
             $request->validate([
                 'contenu' => 'required|string',
                 'theme_id' => 'required|exists:themes,id',
             ]);
-    
             $question = Question::create([
                 'contenu' => $request->contenu,
                 'user_id' => Auth::id(),
                 'theme_id' => $request->theme_id,
-                
             ]);
     
             return response()->json(['message' => 'Question posée avec succès', 'question' => $question], 201);
@@ -112,6 +107,6 @@ class QuestionController extends Controller
             "message"=> $e->getMessage()
             
         ]);
-    }
+        }
     }
 }
