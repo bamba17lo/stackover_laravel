@@ -53,5 +53,10 @@ class User extends Authenticatable
         return $this->hasMany(Reponse::class);
     }
 
+    public function isSupervisor()
+    {
+        return $this->role === 'superviseur';
+    }
+
 
 }
