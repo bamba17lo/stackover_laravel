@@ -7,7 +7,7 @@ use  App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Notifications\Notif;
+use App\Notifications\WelcomeNotification;
 use Exception;
 use Laravel\Sanctum\NewAccessToken;
 
@@ -25,6 +25,9 @@ class AuthController extends Controller
     
             // Enregistrement de l'utilisateur
             $user = User::create($data);
+
+            // Envoyer la notification de bienvenue
+        $user->notify(new WelcomeNotification());
     
             // Authentification automatique après l'inscription
             auth()->login($user);
