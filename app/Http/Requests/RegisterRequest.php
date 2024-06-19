@@ -26,9 +26,9 @@ class RegisterRequest extends FormRequest
         return [
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
-            'role' => 'required|string|max:255',
+            // 'role' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            //'email_verified_at' => 'required|email|same:email',
+            
             'password' => 'required|string|min:8',
         ];
     }
@@ -48,13 +48,11 @@ class RegisterRequest extends FormRequest
     Public function messages()
     {
         return[
-            'name.required'=>'Un nom doit etre fourni',
+            'nom.required'=>'Un nom doit etre fourni',
+            'prenom.required'=>'Un prenom doit etre fourni',
             'email.required'=>'Une adresse mail doit etre fourni',
             'email.unique'=>'Cette adresse mail existe déja',
             'password.required'=>'Un mot de pass doit etre fourni',
-            'email_verified_at.required'=>'Une adresse mail doit etre fourni',
-            'email_verified_at.same' => 'Les adresses e-mail ne correspondent pas.',
-
         ];
     }
 }
